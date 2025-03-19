@@ -64,7 +64,6 @@ export const login = async ({ name, password }) => {
         `Login failed: ${response.status} ${response.statusText}`
       );
     }
-
   } catch (error) {
     console.error("Error during login:", error);
     throw error;

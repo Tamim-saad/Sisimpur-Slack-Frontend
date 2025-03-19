@@ -1,8 +1,17 @@
 import { useMessages } from "../../contextProvider/useMessages";
 import { MessageCard } from "../messages";
 export const MentionLists = () => {
-  const { filteredMessages, users, channels, stamps, isLoading, error } =
-    useMessages();
+  const {
+    filteredMessages,
+    users,
+    channels,
+    stamps,
+    // setActiveTab,
+    isLoading,
+    error,
+  } = useMessages();
+
+  // setActiveTab("Mentions");
 
   return (
     <div className="flex flex-col items-center p-8 bg-gray-100 min-h-screen">

@@ -1,43 +1,7 @@
-import { MessageCard } from "../messages";
 import { useMessages } from "../../contextProvider/useMessages";
-import { useEffect, useState } from "react";
 
 export const MessageListsChannels = () => {
-  const { filteredMessages, users, channels, stamps, isLoading, error } =
-    useMessages();
-
-  const [timeline, setTimeline] = useState([]);
-  const [timelineLoading, setTimelineLoading] = useState(false);
-  const [timelineError, setTimelineError] = useState(null);
-
-  useEffect(() => {
-    const fetchTimeline = async () => {
-      setTimelineLoading(true);
-      try {
-        const response = await fetch(
-          "https://traq.duckdns.org/api/v3/activity/timeline",
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-          }
-        );
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const data = await response.json();
-        setTimeline(data);
-      } catch (err) {
-        setTimelineError(err.message);
-        console.error("Error fetching timeline:", err);
-      } finally {
-        setTimelineLoading(false);
-      }
-    };
-
-    fetchTimeline();
-  }, []);
+  const { users, channels, timeline } = useMessages();
 
   // Helper function to safely get user name
   const getUserName = (userId) => {
@@ -67,19 +31,20 @@ export const MessageListsChannels = () => {
     return channelId;
   };
 
+  // setActiveTab("All");
+
   return (
     <div className="flex flex-col p-6 bg-gray-50 min-h-screen">
       <h2 className="text-3xl font-bold text-gray-900 mb-4">
         All Channel Messages
       </h2>
-
       {/* Timeline Section */}
       <div className="mb-8 bg-white rounded-xl shadow-lg p-6">
         <h3 className="text-2xl font-semibold text-indigo-700 mb-4 border-b pb-2">
           Timeline Activity
         </h3>
 
-        {timelineLoading && (
+        {/* {timelineLoading && (
           <div className="flex justify-center py-4">
             <div className="animate-pulse text-indigo-500 text-lg">
               Loading timeline...
@@ -97,11 +62,12 @@ export const MessageListsChannels = () => {
           <div className="text-gray-500 text-center py-6 italic">
             No timeline activities found.
           </div>
-        )}
+        )} */}
 
-        {!timelineLoading && timeline.length > 0 && (
-          <div className="rounded-lg overflow-hidden">
-            <ul className="divide-y divide-gray-200">
+        {/* {!timelineLoading && timeline.length > 0 && ( */}
+        {timeline.length > 0 && (
+          <div className="rounded-lg ">
+            <ul className="divide-y divide-gray-200 overflow-y-auto max-h-[500px]">
               {timeline.map((activity) => (
                 <li
                   key={activity.id}
@@ -129,34 +95,6 @@ export const MessageListsChannels = () => {
             </ul>
           </div>
         )}
-      </div>
-
-      {/* Original Messages Section */}
-      <div className="w-full max-w-4xl h-[calc(100vh-180px)] overflow-y-auto">
-        <div className="space-y-2">
-          {isLoading && (
-            <p className="text-gray-500 text-lg text-center">
-              Loading messages...
-            </p>
-          )}
-          {error && <p className="text-red-500 text-lg text-center">{error}</p>}
-
-          {!isLoading && filteredMessages.length === 0 ? (
-            <p className="text-gray-500 text-lg text-center">
-              No messages found.
-            </p>
-          ) : (
-            filteredMessages.map((msg) => (
-              <MessageCard
-                key={msg.id}
-                msg={msg}
-                users={users}
-                channels={channels}
-                stamps={stamps}
-              />
-            ))
-          )}
-        </div>
       </div>
     </div>
   );
