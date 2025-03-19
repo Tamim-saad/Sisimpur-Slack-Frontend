@@ -25,6 +25,7 @@ export const MessageProvider = ({ children }) => {
   const [stamps, setStamps] = useState({});
   const [activeTab, setActiveTab] = useState("All");
   const [loading, setLoading] = useState(true);
+  const [timeline, setTimeline] = useState([]);
 
   useEffect(() => {
     const fetchAllData = async () => {
@@ -92,6 +93,20 @@ export const MessageProvider = ({ children }) => {
           )
         );
 
+        const timelineRes = await fetch(
+          "https://traq.duckdns.org/api/v3/activity/timeline",
+          {
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (timelineRes.ok) {
+          const data = await timelineRes.json();
+          setTimeline(data);
+        }
+
         filterMessages("All", combinedMessages, userRes);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -129,6 +144,8 @@ export const MessageProvider = ({ children }) => {
     setFilteredMessages(newFilteredMessages);
   };
 
+  // const filterChannel =
+
   const setActiveTabAndFilter = (tab) => {
     setActiveTab(tab);
     filterMessages(tab);
@@ -144,6 +161,9 @@ export const MessageProvider = ({ children }) => {
         activeTab,
         setActiveTab: setActiveTabAndFilter,
         loading,
+        timeline,
+        currentUser,
+        messages,
       }}
     >
       {loading ? <p>Loading...</p> : children}

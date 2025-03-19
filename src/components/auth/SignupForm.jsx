@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { authServices } from "../../auth";
 import { useNavigate } from "react-router-dom";
+
 export const SignupForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -22,7 +23,6 @@ export const SignupForm = () => {
     const payload = {
       name: formData.name,
       password: formData.password,
-      // honeypot: "", // Honeypot field
     };
 
     authServices
@@ -33,7 +33,6 @@ export const SignupForm = () => {
 
   return (
     <div style={styles.container}>
-      {/* {error && <p style={styles.error}>{error}</p>} */}
       <form onSubmit={handleSubmit} style={styles.form}>
         <input
           type="name"

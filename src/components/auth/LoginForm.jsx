@@ -33,8 +33,6 @@ export const LoginForm = () => {
 
   return (
     <div style={styles.container}>
-      {/* <h2>Login</h2> */}
-      {/* {error && <p style={styles.error}>{error}</p>} */}
       <form onSubmit={handleSubmit} style={styles.form}>
         <input
           type="name"
