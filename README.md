@@ -9,3 +9,7 @@ Official API Documentation: Access the comprehensive API documentation at https:
 Translated API Documentation: For an English-translated version, visit https://mjksabit.github.io/traq/swagger.html.​
 
 Swagger UI: Explore the API endpoints interactively through the Swagger UI at https://mjksabit.github.io/traq/.
+
+
+## Demo Video
+https://youtu.be/Fgpx3Qj69_g
