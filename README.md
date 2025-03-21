@@ -1,5 +1,5 @@
 ## traQ Messaging App
-traQ is a Slack-like messaging application with a frontend developed using the traQ API. The backend is deployed and accessible via the web at https://traq.duckdns.org.​
+​traQ is a messaging application inspired by Slack, designed to facilitate seamless communication among team members. This project focuses on implementing the frontend using the traQ API, with the backend deployed and accessible via https://traq.duckdns.org.
 
 # API Documentation
 For detailed information on the traQ API, please refer to the following resources:​
